@@ -12,21 +12,36 @@ struct CountryView: View {
     
     var body: some View {
         VStack {
-            Text("\(country.name)")
-                .font(.largeTitle)
+            Text(country.name)
+                .font(.title)
+                .shadow(color: .gray, radius: 3, x: 0, y: 2)
             
             Image(country.code.lowercased())
                 .resizable()
-                .scaledToFit()
+                .aspectRatio(contentMode: .fit)
                 .border(Color.black, width: 1)
+                .padding()
+                .shadow(color: .gray, radius: 3, x: 0, y: 2)
             
             CountryDetailsView(country: $country)
-            Button("More details in Wikipedia") {
+            
+            Button(action: {
                 if let wikipediaURL = URL(string: "https://en.m.wikipedia.org/wiki/\(country.name.replacingOccurrences(of: " ", with: "_"))") {
                     UIApplication.shared.open(wikipediaURL)
                 }
+            }) {
+                Text("View More Details on Wikipedia")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color.blue)
+                            .shadow(color: .gray, radius: 3, x: 0, y: 10)
+                            .padding(.horizontal, 0)
+                    )
             }
-            .buttonStyle(.bordered)
+            .padding()
 
         }
         .padding()
@@ -38,4 +53,3 @@ struct CountryView_Previews: PreviewProvider {
         CountryView(country: finland)
     }
 }
-
