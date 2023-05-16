@@ -39,72 +39,84 @@ struct ContentView: View {
             // Set the style of the list and the title of the navigation view
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("EU Members")
+            
         }
     }
 }
 
-// Define the view for a single country in the list
 struct Custom_Row_View: View {
     
-    // Get the country object for this row
     var country: Country
     
-    // Define the body of the view
     var body: some View {
         NavigationLink(destination: CountryView(country: country)) {
-            // Display the country flag, name, and icons indicating membership in the EU, use of the Euro, and membership in the Schengen Area
             HStack {
-                flagImage(country: country)
-                Text(country.name)
+                flagImage(country: country) // Display the country flag
+                    .shadow(color: .gray, radius: 3, x: 0, y: 2) //3d shadow
+                    
+                Text(country.name) // Display the country name
+                    .shadow(color: .gray, radius: 3, x: 0, y: 2)
+                    
                 Spacer()
-                starIcon(country: country)
-                euroIcon(country: country)
-                schengenIcon(country: country)
+                
+                starIcon(country: country) // Display the EU membership icon
+                    
+                euroIcon(country: country) // Display the Euro use icon
+                    
+                schengenIcon(country: country) // Display the Schengen Area membership icon
             }
+            .padding(10)
+            .background(Color.white)
+            .cornerRadius(10)
+            .shadow(color: .gray, radius: 3, x: 0, y: 2)
         }
     }
     
-    // Display the country flag image
     private func flagImage(country: Country) -> some View {
+        // Display the country flag
         Image(country.code.lowercased())
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: 30, height: 20)
     }
-    
-    // Display the EU membership icon
+
     private func starIcon(country: Country) -> some View {
+        // Display the EU membership icon
         Image(systemName: country.isMember ? "star.fill" : "multiply")
             .foregroundColor(country.isMember ? .yellow : .red)
             .frame(width: 30, height: 30)
     }
-    
-    // Display the Euro use icon
+
     private func euroIcon(country: Country) -> some View {
         if country.isEuroZone {
+            // Display the Euro use icon if the country is in the Eurozone
             return AnyView(Text("\u{20AC}")
                 .foregroundColor(.yellow)
                 .frame(width: 30, height: 30))
         } else {
+            // Display a multiply icon if the country is not in the Eurozone
             return AnyView(Image(systemName: "multiply")
                 .foregroundColor(.red)
                 .frame(width: 30, height: 30))
         }
     }
 
-    // Display the Schengen Area membership icon
     private func schengenIcon(country: Country) -> some View {
         if country.isSchengen {
+            // Display the Schengen Area membership icon if the country is a member
             return Image(systemName: "checkmark")
                 .foregroundColor(.yellow)
                 .frame(width: 30, height: 30)
         } else {
+            // Display a multiply icon if the country is not a member of the Schengen Area
             return Image(systemName: "multiply")
                 .foregroundColor(.red)
                 .frame(width: 30, height: 30)
         }
     }
 }
+
+
 
 // Define a preview for the main view
 struct ContentView_Previews: PreviewProvider {
