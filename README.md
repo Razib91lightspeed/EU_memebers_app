@@ -11,7 +11,7 @@ This iOS app displays information about European Union (EU) member countries, in
 - [Dependencies](#dependencies)
 - [Screenshots](#screenshots)
 - [Contributing](#contributing)
-- [License](#license)
+
 
 ## Introduction
 
@@ -39,7 +39,7 @@ The EU Members app provides users with information about EU member countries, th
 1. Clone the repository:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Razib91lightspeed/EU_memebers_app.git
 
 ## Open the project in Xcode.
 
